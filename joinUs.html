@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加入我们</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://unpkg.com/vant@2.12/lib/index.css" />
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <!-- 引入 Vue 和 Vant 的 JS 文件 -->
+    <script src="https://unpkg.com/vue@2.6/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/vant@2.12/lib/vant.min.js"></script>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="navBar">
+            <div class="gmName">
+                <img class="logo" src="./pic/logo.png" alt="">
+                <img src="./pic/svg.svg">
+            </div>
+        </div>
+        <div class="join">
+            <img src="./pic/jionus.jpg" alt="">
+            <div class="content">
+                <p class="colorGreen title">
+                    <span class="bline"></span>
+                    岗位合作要求：
+                </p>
+                <p>1、主要负责日常游戏直播工作，完成直播场次及直播时长要求，通过直播引导观众下载游戏注册账号。 </p>
+                <p>2、游戏内玩家维系，第一时间获取游戏更新及活动、福利内容，与游戏内粉丝玩家互动，建立良性游戏生态。 </p>
+                <p>3、直播平台粉丝维护，及时解答响应粉丝提问，做好直播预告及粉丝经营。</p>
+                <p class="colorGreen title">
+                    <span class="bline"></span>
+                    任职要求：
+                </p>
+                <p>1、有游戏直播经验优先，应届生、实习生均可考虑。</p>
+                <p>2、能够独立完成直播。</p>
+                <p>3、性格外向活泼，语言幽默风趣有节奏，善于活跃气氛。</p>
+                <div class="wx">
+                    
+                    <p class="colorRed">有意请添加微信：Hds338888 或扫码添加好友。</p>
+                    <img src="./pic/vx.jpg" alt="">
+                </div>
+            </div>
+        </div>
+        <van-tabbar v-model="active" active-color="#00cdba" @change="onChange">
+            <van-tabbar-item icon="wap-home-o">首页</van-tabbar-item>
+            <van-tabbar-item icon="chart-trending-o">排行榜</van-tabbar-item>
+            <van-tabbar-item icon="gift-o">福利礼包</van-tabbar-item>
+            <van-tabbar-item icon="friends-o">加入我们</van-tabbar-item>
+
+        </van-tabbar>
+    </div>
+
+    <script>
+        // 在 #app 标签下渲染一个按钮组件
+        new Vue({
+            el: '#app',
+            data: function () {
+                return {
+                    active: 3,
+
+                }
+            },
+            methods: {
+                onChange(index) {
+                    if (index == 0) {
+                        location.href = './index.html'
+                    } else if (index == 1) {
+                        location.href = './ranking.html'
+                    } else if (index == 2) {
+                        location.href = './giftpack.html'
+                    }
+                }
+            },
+            created: function () {
+            },
+            mounted: function () {
+            }
+
+        });
+
+        // 通过 CDN 引入时不会自动注册 Lazyload 组件
+        // 可以通过下面的方式手动注册
+        Vue.use(vant.Lazyload);
+    </script>
+</body>
+
+</html>

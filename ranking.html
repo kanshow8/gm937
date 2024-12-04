@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>排行榜</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://unpkg.com/vant@2.12/lib/index.css" />
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <!-- 引入 Vue 和 Vant 的 JS 文件 -->
+    <script src="https://unpkg.com/vue@2.6/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/vant@2.12/lib/vant.min.js"></script>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="navBar">
+            <div class="gmName">
+                <img class="logo" src="./pic/logo.png" alt="">
+                <img src="./pic/svg.svg">
+            </div>
+        </div>
+        <div class="rankingList">
+            <div class="item" v-for="item in rankingList" @click="toDetail(item.id)">
+                <div class="left">
+                    <img :src="item.logo" alt="">
+                    <div class="content">
+                        <p>{{item.title}}</p>
+                        <p class="ft12">
+                            <van-icon name="star" color="#00cdba" />
+                            <span class="fw700">{{item.rate}}</span>
+                            <span class="colorGray">{{item.description}}</span>
+                        </p>
+                    </div>
+                </div>
+                <button><van-icon name="diamond-o" color="#00cdba" /> 下 载</button>
+            </div>
+        </div>
+        <van-tabbar v-model="active" active-color="#00cdba" @change="onChange">
+            <van-tabbar-item icon="wap-home-o">首页</van-tabbar-item>
+            <van-tabbar-item icon="chart-trending-o">排行榜</van-tabbar-item>
+            <van-tabbar-item icon="gift-o">福利礼包</van-tabbar-item>
+            <van-tabbar-item icon="friends-o">加入我们</van-tabbar-item>
+
+        </van-tabbar>
+    </div>
+
+    <script>
+        // 在 #app 标签下渲染一个按钮组件
+        new Vue({
+            el: '#app',
+            data: function () {
+                return {
+                    active: 1,
+                    rankingList: [
+                        {
+                            logo: './pic/A3/logo.jpg',
+                            title: 'A3战之刃0.1折',
+                            id: 'A3',
+                            rate: '9.7',
+                            description: '180天前 首发',
+                        },
+                        {
+                            logo: './pic/yujinfengbao/logo.jpg',
+                            title: '余烬风暴0.1折',
+                            id: 'yujinfengbao',
+                            rate: '9.5',
+                            description: '210天前 首发',
+                        },
+                        {
+                            logo: './pic/jianyutianxia/logo.jpg',
+                            title: '剑御天下',
+                            id: 'jianyutianxia',
+                            rate: '9.3',
+                            description: '50天前 首发',
+                        },
+                        {
+                            logo: './pic/yuansuyongshi/logo.jpg',
+                            title: '元素勇士',
+                            id: 'yuansuyongshi',
+                            rate: '9.1',
+                            description: '50天前 首发',
+                        },
+
+                        {
+                            logo: './pic/lielongzhezhige/logo.jpg',
+                            title: '猎龙者之歌',
+                            id: 'lielongzhezhige',
+                            rate: '9.0',
+                            description: '30天前 首发',
+                        },
+                        {
+                            logo: './pic/chunbaihexian/logo.jpg',
+                            title: '纯白和弦',
+                            id: 'chunbaihexian',
+                            rate: '8.8',
+                            description: '90天前 首发',
+                        },
+                        {
+                            logo: './pic/huanshijiuge/logo.jpg',
+                            title: '幻世九歌5折版',
+                            id: 'huanshijiuge',
+                            rate: '8.6',
+                            description: '365天前 首发',
+                        },
+                        {
+                            logo: './pic/molongshijie/logo.jpg',
+                            title: '魔龙世界',
+                            id: 'molongshijie',
+                            rate: '8.5',
+                            description: '120天前 首发',
+                        },
+                        {
+                            logo: './pic/qinshimingyue/logo.jpg',
+                            title: '秦时明月：沧海0.1折',
+                            id: 'qinshimingyue',
+                            rate: '8.2',
+                            description: '90天前 首发',
+                        },
+                        {
+                            logo: './pic/shanhaiyiwenlu/logo.jpg',
+                            title: '山海异闻录YH',
+                            id: 'shanhaiyiwenlu',
+                            rate: '8.0',
+                            description: '395天前 首发',
+                        },
+                        {
+                            logo: './pic/mojingwuyu/logo.jpg',
+                            title: '魔镜物语0.1折',
+                            id: 'mojingwuyu',
+                            rate: '7.9',
+                            description: '45天前 首发',
+                        },
+                    ]
+                }
+            },
+            methods: {
+                onChange(index) {
+                    if (index == 0) {
+                        location.href = './index.html'
+                    } else if (index == 2) {
+                        location.href = './giftpack.html'
+                    } else if (index == 3) {
+                        location.href = './joinUs.html'
+                    }
+
+                },
+                toDetail(id) {
+                    console.log(id)
+                    location.href = './detail.html?id=' + id
+                }
+            },
+            created: function () {
+            },
+            mounted: function () {
+            }
+
+        });
+
+        // 通过 CDN 引入时不会自动注册 Lazyload 组件
+        // 可以通过下面的方式手动注册
+        Vue.use(vant.Lazyload);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>详情</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://unpkg.com/vant@2.12/lib/index.css" />
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <!-- 引入 Vue 和 Vant 的 JS 文件 -->
+    <script src="https://unpkg.com/vue@2.6/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/vant@2.12/lib/vant.min.js"></script>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="navBar">
+            <div class="gmName">
+                <img class="logo" src="./pic/logo.png" alt="">
+                <img src="./pic/svg.svg">
+            </div>
+        </div>
+        <div class="detail">
+            <div class="imgs">
+                <van-swipe style="height: 230px" :autoplay="3000">
+                    <van-swipe-item v-for="(image, index) in game.imgs" :key="index">
+                        <img v-lazy="image" />
+                    </van-swipe-item>
+                </van-swipe>
+                <!-- <img v-for="item in game.imgs" :src="item" alt=""> -->
+            </div>
+
+            <div class="game">
+                <div class="left">
+                    <img :src="game.logo">
+                    <div class="content">
+                        <p>{{game.title}}</p>
+                        <span class="ft14">{{game.time}}</span>
+                        <span class="ft12 colorGray"><van-icon name="certificate" />16周岁+ 官方入驻</span>
+                    </div>
+                </div>
+                <div class="right">
+                    <span class="score">score</span>
+                    <span class="rate">{{game.rate}}</span>
+                </div>
+            </div>
+            <div class="classify">
+                <div>
+                    <span class="name">热门榜</span>
+                    <span class="val">#{{game.ranking}}</span>
+                </div>
+                <span class="line"></span>
+                <div>
+                    <span class="name">下载次数</span>
+                    <span class="val">{{game.download}}</span>
+                </div>
+                <span class="line"></span>
+                <div>
+                    <span class="name">游戏大小</span>
+                    <span class="val">{{game.gameSize}}</span>
+                </div>
+                <span class="line"></span>
+                <div>
+                    <span class="name">游戏类型</span>
+                    <span class="val">{{game.type}}</span>
+                </div>
+            </div>
+
+            <div class="desc">
+                <van-cell is-link @click="showIntroduce">
+                    <p class="colorGreen"><span class="bline"></span>游戏介绍：</p>
+                    <div class="jieshao">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{game.desc}}
+                    </div>
+                </van-cell>
+
+                <van-popup v-model="introduce1" round closeable position="bottom">
+                    <h4>游戏介绍</h4>
+                    <div class="text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{game.desc}}</div>
+                </van-popup>
+            </div>
+
+            <div class="desc">
+                <van-cell is-link @click="showWelfare">
+                    <p class="colorGreen"><span class="bline"></span>进游福利：</p>
+                    <div class="welfare">
+                        <p class="albase" v-for="item in game.package">
+                            <van-icon color="#ff6f38" name="point-gift"></van-icon>
+                            <span class="textColor">{{item}}</span>
+                        </p>
+                    </div>
+                </van-cell>
+                <van-popup v-model="welfare" round closeable position="bottom">
+                    <h4>进游福利</h4>
+                    <div class="text">
+                        <p class="albase" v-for="item in game.package">
+                            <van-icon color="#ff6f38" name="point-gift"></van-icon>
+                            <span class="textColor">{{item}}</span>
+                        </p>
+                    </div>
+                </van-popup>
+            </div>
+            <div class="download colorGreen">
+                <div class="android" @click="downAndroid(game.androidUrl)">
+                    <img src="./pic/anzhuo.png" alt="">
+                    安卓下载
+                </div>
+                <div class="ios" @click="downIOS(game.iosUrl)">
+                    <img src="./pic/ios_w.png" alt="">
+                    iOS下载
+                </div>
+            </div>
+        </div>
+        <van-tabbar v-model="active" active-color="#00cdba" @change="onChange">
+            <van-tabbar-item icon="wap-home-o">首页</van-tabbar-item>
+            <van-tabbar-item icon="chart-trending-o">排行榜</van-tabbar-item>
+            <van-tabbar-item icon="gift-o">福利礼包</van-tabbar-item>
+            <van-tabbar-item icon="friends-o">加入我们</van-tabbar-item>
+
+        </van-tabbar>
+    </div>
+
+    <script>
+        // 在 #app 标签下渲染一个按钮组件
+        new Vue({
+            el: '#app',
+            data: function () {
+                return {
+                    active: '',
+                    height: '230px',
+                    introduce1: false,
+                    welfare: false,
+                    game: {
+                        logo: '',
+                        title: '',
+                        type: '',
+                        androidUrl: '',
+                        iosUrl: '',
+                        rate: '',
+                        ranking: '',
+                        download: '',
+                        gameSize: '',
+                        rate: '',
+                        time: '',
+                        desc: '',
+                        imgs: [],
+                        package: []
+                    },
+                    games: {
+                        'huanshijiuge': {
+                            logo: './pic/huanshijiuge/logo.jpg',
+                            title: '幻世九歌5折版',
+                            type: '仙侠',
+                            androidUrl: 'https://g.288sy.com/h/317e98ba',
+                            iosUrl: 'https://g.288sy.com/h/317e98ba',
+                            ranking: '7',
+                            download: '300万',
+                            gameSize: '6.5G',
+                            rate: '8.6',
+                            time: '365天前 首发',
+                            desc: '在一个青丘遭遇危机的幻世大陆，人与战灵共生，邪恶的魅灵一族企图打破封印，释放几乎拥有毁灭力量的“混沌，”以谋求一族私利。就在幻世大陆即将陷入水深火热的千钧一发之际，神秘的狐族少女苏璃盗走了打破封印的关键之物——“七曜神石”，却也因此身陷杀机，为躲避被魅灵一族的追杀，神秘狐族少女就此只身踏上了漫漫的逃亡之路，《幻世九歌》手游的故事也由此缓缓铺开……作为御灵师的玩家，也将在邂逅神秘狐族少女苏璃的同时，结识更多幻世冒险伙伴。',
+                            imgs: [
+                                './pic/huanshijiuge/huanshijiuge-01.jpg',
+                                './pic/huanshijiuge/huanshijiuge-02.jpg',
+                                './pic/huanshijiuge/huanshijiuge-03.jpg',
+                                './pic/huanshijiuge/huanshijiuge-04.jpg',
+                                './pic/huanshijiuge/huanshijiuge-05.jpg',
+                            ],
+                            package: [
+                                '6480元充值卡+神龙币*888',
+                                '羽翼·星陨战翼',
+                                '服饰·冬季恋歌',
+                                'SP战灵·元天帝鳞',
+                                '创角套装A·九尾职业的套装',
+                                '创角套装B·萝莉职业的套装',
+                                '【图鉴】传说战灵随机*1',
+                                '坐骑·寒霜炎龙/圣灵龙/凤凰三选一',
+                                '1000元充值卡+328元充值卡+188神龙币（额外加码）'
+                            ]
+                        },
+                        'chunbaihexian': {
+                            logo: './pic/chunbaihexian/logo.jpg',
+                            title: '纯白和弦',
+                            type: '卡牌回合',
+                            androidUrl: 'https://tuicv.appd.cn/#/soyofe/52487/SYn3N1',
+                            iosUrl: 'https://tuicv.appd.cn/#/soyofe/52487/bxcCOp',
+                            ranking: '6',
+                            download: '100万',
+                            gameSize: '1.7G',
+                            rate: '8.8',
+                            time: '60天前 首发',
+                            desc: '《纯白和弦》是一款歌剧世界少女养成手游。《天鹅湖》《尼伯龙根的指环》《胡桃夹子》……无数与音乐有关的人物与景观交汇于维尔兰德，演化出一个神奇的幻想世界！庞大的世界观、细腻且具有差异化的角色设定、多元探索养成玩法，你将在寻找和发掘乐姬的路上领略到这些性格各异的少女们真正的魅力！强策略与灵活操作兼具的即时卡牌对战，直面强敌抑或步步为营由你决定！冒险旅途中的Roguelike元素，在随机事件抉择中寻找通往胜利的道路！那么现在，作为维尔兰德最后的希望，请你挥动手中的指挥棒，带领少女们向乐魇华丽宣战！',
+                            imgs: [
+                                './pic/chunbaihexian/chunbaihexian-01.jpg',
+                                './pic/chunbaihexian/chunbaihexian-02.jpg',
+                                './pic/chunbaihexian/chunbaihexian-03.jpg',
+                                './pic/chunbaihexian/chunbaihexian-04.jpg',
+                                './pic/chunbaihexian/chunbaihexian-05.jpg',
+                            ],
+                            package: [
+                                '每日登陆游戏就送648充值',
+                                '更多充值福利请联系客服'
+                            ]
+                        },
+                        'jianyutianxia': {
+                            logo: './pic/jianyutianxia/logo.jpg',
+                            title: '剑御天下',
+                            type: '仙侠',
+                            androidUrl: 'http://qm.8v.ink/?k=0ZmQQIvP2',
+                            iosUrl: 'http://qm.8v.ink/?k=091ocRbKp',
+                            ranking: '3',
+                            download: '10万',
+                            gameSize: '3.5G',
+                            rate: '9.3',
+                            time: '60天前 首发',
+                            desc: '暗黑修真ARPG，非放置修真，为修真爱好者量身定做。硬核修真游戏，玩法通过打妖兽获取材料，打造渡劫丹和法宝。面对很多上古遗境的挑战，一步一步渡劫飞升，剑开天门。前期新手引导比较硬核，没有自动寻路，而且怪物有一定的挑战性，而且每一个阶段需要的突破材料也不一样，导致前期上手有一定的难度，可保证的是，后期玩法有足够的深度支持。后期玩法挑战上古秘境，打造法宝神器，大部分装备可以自由交易，所有装备都是地图刷到。如果你喜欢暗黑或者喜欢操作的修真，快来加入我们吧！',
+                            imgs: [
+                                './pic/jianyutianxia/jianyutianxia-01.jpg',
+                                './pic/jianyutianxia/jianyutianxia-02.jpg',
+                                './pic/jianyutianxia/jianyutianxia-03.jpg',
+                                './pic/jianyutianxia/jianyutianxia-04.jpg',
+                                './pic/jianyutianxia/jianyutianxia-05.jpg',
+                            ],
+                            package: [
+                                '灵石*1000 + 凌霄仙果*10 + 气血散*10',
+                                '灵石*1000 + 凌霄仙果*10 + 黄玉*5',
+                                '灵石*1000 + 凌霄仙果*10 + 功德*20',
+                                '灵石*2000 + 灵悟丹*50 + 归元丹*10',
+                                '灵石*2000 + 灵悟丹*50 + 黄玉*5',
+                                '灵石*2000 + 灵悟丹*50 + 无字天书*1',
+                                '灵石*3000 + 复元露*3 + 盘古石碎片*1',
+                                '灵石*3000 + 复元露*3 + 女娲石碎片*1',
+                                '灵石*10W + 祈天令*6 + 无字天书*10',
+                                '灵石*3W + 祈天令*9 + 盘古石*1',
+                                '灵石*5000 + 祈天令*10 + 济世福禄*2',
+                                '灵石*5000 + 仙品·山海残卷盒*1 + 盘古石*1'
+                            ]
+                        },
+                        'A3': {
+                            logo: './pic/A3/logo.jpg',
+                            title: 'A3战之刃0.1折',
+                            type: 'RPG',
+                            androidUrl: 'http://cavalry.nextjoy.com/package/download?ggid=16&id=59574',
+                            iosUrl: 'https://a3page.nextjoy.com/anchorpage?channel=81&subchannel=59664',
+                            ranking: '1',
+                            download: '80万',
+                            gameSize: '1.69G',
+                            rate: '9.7',
+                            time: '180天前 首发',
+                            desc: '《战之刃:幸存者》是一款由Netmarble(网石游戏)研发，明日世界游戏代理发行的暗黑魔幻生存MMORPG 手游，根据人气网游《A3》改编。史诗级宏大世界观，别具一格的暗黑中世纪画风，独具特色的多人自由竞技玩法带给你不一样的MMO体验。在这里，你可以感受层层递进的丰富任务与魔幻故事，你也可以挑战超高难度的副本以获得各类丰富的资源道具,还可以召唤魂契守护者与你并肩作战，但是请记住，在这场更改黑暗末日结局的旅途中，唯有不停战斗，才能成为最终的幸存者!',
+                            imgs: [
+                                './pic/A3/A3-1.jpg',
+                                './pic/A3/A3-2.jpg',
+                                './pic/A3/A3-3.jpg',
+                                './pic/A3/A3-4.jpg',
+                                './pic/A3/A3-5.jpg',
+                            ],
+                            package: [
+                                '纯白约定武器与防具兑换卷',
+                                '7星传说自选灵魂之星',
+                                '钻石1000+黄水晶1000',
+                                '10个高阶契混者抽奖券+100W金币+1000钻石',
+                                '10个高阶饰品抽奖券+100w金币+1000钻石',
+                                '10个高阶灵魂行者抽奖券+100w金币+1000钻石',
+                                '10个高阶契魂者装备抽奖券+100w金币+1000钻石',
+                                '10个高阶神奇动物抽奖券+100w金币+1000钻石',
+                                '高级被动技能强化石200个+2000钻石',
+                                '钻石2000+高级被动技能强化石200个'
+                            ]
+                        },
+                        'lielongzhezhige': {
+                            logo: './pic/lielongzhezhige/logo.jpg',
+                            title: '猎龙者之歌',
+                            type: 'ARPG',
+                            androidUrl: 'https://down.520jysy.com/175/ESME/dl.html',
+                            iosUrl: 'https://down.520jysy.com/177/ESME/dl.html',
+                            ranking: '5',
+                            download: '20万',
+                            gameSize: '1.9G',
+                            rate: '9.0',
+                            time: '90天前 首发',
+                            desc: '《猎龙者之歌》是一款全新的3DMMORPG，游戏发生在米德加尔特大陆上，这是一个结合了北欧神话的西方幻想风格的架空世界。米德加尔特的终焉已降临，世界树的嫩芽已在密林中种下，智慧之泉自树根滴落，灰袍老者在阴影中散布着新的预言，你，会是预言中的猎龙之勇者吗？',
+                            imgs: [
+                                './pic/lielongzhezhige/lielongzhezhige-01.jpg',
+                                './pic/lielongzhezhige/lielongzhezhige-02.jpg',
+                                './pic/lielongzhezhige/lielongzhezhige-03.jpg',
+                                './pic/lielongzhezhige/lielongzhezhige-04.jpg',
+                                './pic/lielongzhezhige/lielongzhezhige-05.jpg',
+                            ],
+                            package: [
+                                '智慧甘露*5 + 20W银币*1 + 绑定钻石*100',
+                                '10W经验丸子*10 + 自然精华*100 + 绑定钻石*100',
+                                '魔晶*200 + 20W银币*1 + 一阶强化石*200',
+                                '一包宝石粉末*20 + 自然精华*100 + 绑定钻石*200',
+                                '魔石*200 + 一阶强化石*200 + 20W银币*1',
+                                '智慧甘露*5  + 20W银币*1 + 绑定钻石*100'
+                            ]
+                        },
+                        'mojingwuyu': {
+                            logo: './pic/mojingwuyu/logo.jpg',
+                            title: '魔镜物语0.1折',
+                            type: '卡牌',
+                            androidUrl: 'https://m.yiyouy.com/share/app_id/149/agent_id/1454.html',
+                            iosUrl: 'https://m.yiyouy.com/share/app_id/150/agent_id/1454.html',
+                            ranking: '11',
+                            download: '118万',
+                            gameSize: '905M',
+                            rate: '7.9',
+                            time: '45天前 首发',
+                            desc: '欢迎光临《魔镜物语》的神秘世界！心机的公主，狡猾的矮人，熟悉角色全面颠覆？王子欺骗了公主、猎人披上狼皮，经典剧情竟然被反转了？无穷无尽的森林秘境，甜美与冷血并存的神秘世界。你，破镜者，将带领性格各异的小伙伴，闯荡奇幻世界，组成最强梦之队，将噩梦从魔镜世界驱除！',
+                            imgs: [
+                                './pic/mojingwuyu/mojingwuyu-01.jpg',
+                                './pic/mojingwuyu/mojingwuyu-02.jpg',
+                                './pic/mojingwuyu/mojingwuyu-03.jpg',
+                                './pic/mojingwuyu/mojingwuyu-04.jpg',
+                                './pic/mojingwuyu/mojingwuyu-05.jpg',
+                            ],
+                            package: [
+                                '进阶石x100 + 金币x100000 + 伙伴经验x50000',
+                                '高能晶石x1 + 金币x50000 + 伙伴经验x20000',
+                                '召唤晶石x10 + 金币x50000 + 伙伴经验x20000',
+                                '幸运卷x3 + 金币x50000 + 伙伴经验x20000',
+                                '灵物圣徽x5 + 灵物神石x5000',
+                                '幸运卷x5',
+                                '灵物秘轴x1 + 灵物神石x2000',
+                                '自然符文x1	+ 符文精华x100',
+                                '4星伙伴碎片x30',
+                                '高能晶石x1	+ 召唤晶石x3',
+                                '3星伙伴碎片x20	+ 金币x50000 + 伙伴经验x20000',
+                                '资源自选小x2',
+                                '材料自选小x1',
+                                '符文精华x100 + 金币x100000 + 伙伴经验x50000',
+                                '中级装备经验x5	+ 初级装备经验x30',
+                                '符文精华x200',
+                                '绿色装备礼包x1',
+                                '紫色随机灵物x1'
+                            ]
+                        },
+                        'molongshijie': {
+                            logo: './pic/molongshijie/logo.jpg',
+                            title: '魔龙世界',
+                            type: '魔兽',
+                            androidUrl: 'https://m.yiyouy.com/share/app_id/153/agent_id/1454.html',
+                            iosUrl: 'https://m.yiyouy.com/share/app_id/154/agent_id/1454.html',
+                            ranking: '8',
+                            download: '90万',
+                            gameSize: '1.2G',
+                            rate: '8.5',
+                            time: '120天前 首发',
+                            desc: '3DMMO正统魔幻手游《魔龙世界》，还原级HD端游画质，1600万㎡真3D无缝地图自由探索，双阵营、战法牧复刻经典玩法；王者争锋，开启全民竞技时代。原汁原味的开荒体验，六大种族打响命运之战。主机式操控视角，更可骑乘巨龙飞跃格兰普大陆。为了信仰与荣耀，美轮美奂的魔幻大陆，在此重启！',
+                            imgs: [
+                                './pic/molongshijie/molongshijie-01.jpg',
+                                './pic/molongshijie/molongshijie-02.jpg',
+                                './pic/molongshijie/molongshijie-03.jpg',
+                                './pic/molongshijie/molongshijie-04.jpg',
+                                './pic/molongshijie/molongshijie-05.jpg',
+                            ],
+                            package: [
+                                '强化石：*100；银币:200W；绑定金币:*5000',
+                                '坐骑碎片*5；魔兽精华：*100；初级坐骑水晶*20',
+                                '草木精华*300；智慧果*100；宠物结晶*100',
+                                '瓦雷亚(绿色铭文套)',
+                                '2级宝石袋*10；初级回复药水*50；羽毛*100',
+                                '体力药水*1；怀表*10；中级回复药水*20',
+                                '种族职业转换卡*1；史诗宠物之魂*10',
+                                '传说宠物之魂*10'
+                            ]
+                        },
+                        'qinshimingyue': {
+                            logo: './pic/qinshimingyue/logo.jpg',
+                            title: '秦时明月：沧海0.1折版',
+                            type: '卡牌',
+                            androidUrl: 'https://tuicv.appd.cn/#/soyofe/52003/MejLfa',
+                            iosUrl: 'https://tuicv.appd.cn/#/soyofe/52003/RT1S5J',
+                            ranking: '9',
+                            download: '150万',
+                            gameSize: '1.2G',
+                            rate: '8.2',
+                            time: '90天前 首发',
+                            desc: '《秦时明月：沧海》是一款以秦时明月系列动画为架构的策略卡牌手游。游戏在延续原作经典剧情的同时，还将重现诸多经典场面，以及战斗场景。并通过人物专属传记的形式，重温那些令人动容的过往。在《秦时明月：沧海》手游中，现在能享受到0.1折版本的极致体验内容，还有每天赠送的648代金券，常规数值不膨胀！',
+                            imgs: [
+                                './pic/qinshimingyue/qinshimingyue-01.jpg',
+                                './pic/qinshimingyue/qinshimingyue-02.jpg',
+                                './pic/qinshimingyue/qinshimingyue-03.jpg',
+                                './pic/qinshimingyue/qinshimingyue-04.jpg',
+                                './pic/qinshimingyue/qinshimingyue-05.jpg',
+                            ],
+                            package: [
+                                '充值比例：1元=10金镒',
+                                '全场永久0.1折，代金券充值多10%，1元当110元用',
+                                '天天送648代金券，代金券还可激活线下永久和单日返利!',
+                                '原版游戏数值，绝对不膨胀',
+                                '免费完成任务送【剑圣-盖聂】',
+                                '首次十连抽必得燕国琴师-高渐离',
+                                '8日登录领取【最强杀手-惊鲵田言】',
+                                '开服第三日起每日赠送648代金券，登录游戏自动弹框，手动领取代金券!'
+                            ]
+                        },
+                        'shanhaiyiwenlu': {
+                            logo: './pic/shanhaiyiwenlu/logo.jpg',
+                            title: '山海异闻录YH',
+                            type: '回合',
+                            androidUrl: 'https://down.520jysy.com/120/ESME/dl.html',
+                            iosUrl: 'https://down.520jysy.com/121/ESME/dl.html',
+                            ranking: '10',
+                            download: '50万',
+                            gameSize: '952.8M',
+                            rate: '8.0',
+                            time: '50天前 首发',
+                            desc: '《山海异闻录（福利版）》为了能够多维度呈现《山海经》中超脱现实且充满神秘色彩的古老内容，将根据现代的理解与想象，大胆融入沉浸式剧情体验以及奇遇式社交玩法。倾力打造的3DMMO国韵奇遇式手游，经典回合，焕新觉醒！官方正版复刻，诚意满满，游戏内多元福利享不停！高额爆率，上古神兽无限召唤。百变策略轻松搭配，畅爽激斗无负担，回合也能如此豪横！重新定义你的山海，玩的就是任性。游戏特色：焕新觉醒—《山海经》正版手游震撼回归，匠心重塑山海印象！经典玩法轻松畅享，纵横山海不留遗憾。海量福利—良心满满，诚意加倍！超值豪礼送不停！战力飙升无负担，轻松霸服！山海万灵—超爽抽卡，爆率翻倍！登录即刻变欧皇，诸天万灵邀你尽情狂欢！国韵山海—古籍经典《山海经》匠心诠释！东方古韵，美学革新，畅享全新的视听盛宴。情义归来—老友集结，呼朋引伴分豪礼！立体社交，丰富娱乐玩法嗨到爆！时光未远，情怀不老！',
+                            imgs: [
+                                './pic/shanhaiyiwenlu/shanhaiyiwenlu-01.jpg',
+                                './pic/shanhaiyiwenlu/shanhaiyiwenlu-02.jpg',
+                                './pic/shanhaiyiwenlu/shanhaiyiwenlu-03.jpg',
+                                './pic/shanhaiyiwenlu/shanhaiyiwenlu-04.jpg',
+                                './pic/shanhaiyiwenlu/shanhaiyiwenlu-05.jpg',
+                            ],
+                            package: [
+                                '招募卷轴*2',
+                                '白色启灵珠*5，缤纷宝石袋*2',
+                                '2000金币礼包*1，祈天石*2',
+                                '2000金币礼包*1，司天神器*1',
+                                '2000金币礼包*1，招募卷轴*2',
+                                '2000金币礼包*1，司天神器*1',
+                                '2000金币礼包*1，祈天石*2',
+                                '2000金币礼包*1.青鸾花*10',
+                                '2000金币礼包*1.百合花*10',
+                                '2000金币礼包*1，招募卷轴*2',
+                                '2000金币礼包*1，司天神器*1',
+                                '2000金币礼包*1，祈天石*2',
+                                '2000金币礼包*1，招募卷轴*2',
+                                '招募卷轴*20，三星沧海晶*1，绝世武器宝箱*2',
+                                '招募卷轴*30，三星沧海晶*1，绝世武器宝箱*3',
+                                '明光玄晶*1，辅助绝技包*1，蓝色启灵珠*6'
+                            ]
+                        },
+                        'yuansuyongshi': {
+                            logo: './pic/yuansuyongshi/logo.jpg',
+                            title: '元素勇士',
+                            type: 'Q版RPG',
+                            androidUrl: 'http://qm.8v.ink/?k=0oKlIxVYg',
+                            iosUrl: 'http://qm.8v.ink/?k=0vPDBNmCG',
+                            ranking: '4',
+                            download: '30万',
+                            gameSize: '2.5G',
+                            rate: '9.1',
+                            time: '50天前 首发',
+                            desc: '《元素勇士》是一款卡通动漫冒险MMORPG手游。 相比于其他MMO，独创的钻地玩法、精巧可爱的像素画风、妙趣横生的故事和个性满满的角色，同时拥有大规模争夺战、野外PVP玩法以及社群机制等多人玩法。全新职业，全新冒险，期待您的加入。【游戏特色】[独创性钻地玩法]独特的钻地挖宝机制，探索世界各地神秘宝藏，争夺传说中波塞冬的祝福，一夜暴富。更可以通过宝藏中的奇珍异宝，打造专属神装，横行天下。[多元化养成玩法]元素大陆无一废品，探索世界宝藏，挑战副本掉落，物尽其用，利用多元养成系统，全方位多维度提升专属属性，收获更多提升更多，越战越勇。[多角色共享玩法]无须纠结职业选择，同账号内全角色共享资源及属性加成，可随心所欲玩小号，转换职业，重生即是大神，告别繁琐的小号辛历过程。',
+                            imgs: [
+                                './pic/yuansuyongshi/yuansuyongshi-01.jpg',
+                                './pic/yuansuyongshi/yuansuyongshi-02.jpg',
+                                './pic/yuansuyongshi/yuansuyongshi-03.jpg',
+                                './pic/yuansuyongshi/yuansuyongshi-04.jpg',
+                                './pic/yuansuyongshi/yuansuyongshi-05.jpg',
+                            ],
+                            package: [
+                                '200万金币',
+                                '10万魔法石',
+                                '猎人盾+6(绑定)',
+                                '宠物召唤*5',
+                                '时装召唤*5',
+                                '[服装]新手包',
+                                '守护点*30',
+                                '加速安瓿(归属)*20',
+                                '战斗命令(归属)*10',
+                                '觉醒订单(归属)*20',
+                                '国防订单(归属)*20',
+                                '战斗强化安瓿(归属)*20',
+                                '生长安瓿(30%)(归属)*10',
+                            ]
+                        },
+                        'yujinfengbao': {
+                            logo: './pic/yujinfengbao/logo.jpg',
+                            title: '余烬风暴0.1折',
+                            type: 'RPG',
+                            androidUrl: 'https://load.muyugame.com/game?ch=NTY3N2JyMTk4OWJy',
+                            iosUrl: 'https://load.muyugame.com/game?ch=NTY3N2JyMTk4OWJy',
+                            ranking: '2',
+                            download: '90万',
+                            gameSize: '1.91G',
+                            rate: '9.5',
+                            time: '210天前 首发',
+                            desc: '《余烬风暴》是一款中世纪魔幻史诗MMORPG手游，游戏内高度还原中世纪风情，团队策略副本、职业技能组合。游戏内拥有高自由度捏脸系统、时装外观定制；坐骑、宠物捕获养成，钓鱼、烹饪等丰富的生活玩法。在副本玩法方面，游戏更注重团队之间的协作，五大职业完美互补，技能及铭文的策略搭配可以应对各种危机。游戏采用架空混沌与秩序的世界观背景，从混沌纪元时期到神族诞生，从世界万物被创造到守护时期，历经了诸多年代的变迁，直至现在。在游戏中，玩家作为龙裔战士，在纷争不断的阿卡奥斯大陆上，世世代代看守着巨龙的神殿，一旦混沌袭来就会拿起武器守护正义与秩序。',
+                            imgs: [
+                                './pic/yujinfengbao/yujinfengbao-01.jpg',
+                                './pic/yujinfengbao/yujinfengbao-02.jpg',
+                                './pic/yujinfengbao/yujinfengbao-03.jpg',
+                                './pic/yujinfengbao/yujinfengbao-04.jpg',
+                                './pic/yujinfengbao/yujinfengbao-05.jpg',
+                            ],
+                            package: [
+                                '元晶*100000，精炼幸运卷轴*50',
+                                '众神之泪*2',
+                                '3银币*200000，砂石魔典*40，3级宝石包*10',
+                                '钻石*1000，卡尔塔秘制全鱼*10，珀岛刺身拼盘*10，战场号角*5',
+                                '钻石*2000，4级宝石包*2，4级宝石魔袋*2',
+                                '圣诞熊*1，魔魂凝晶*50，史诗级宠物碎片*20',
+                                '头像-骑士兔（永久）*1，皇冠主题泡泡*1',
+                                '坐骑银狐*1，高级坐骑魔药*20，卓越骑装碎片自选*30',
+                                '净源晶石*30，棱彩神石*10',
+                                '圣诞熊*1、魔魂精华*30',
+                                '招财猫咪碎片*30、使徒之石*10',
+                                '旅行鸭*1、高级坐骑魔药*30',
+                                '爱心光波*1、3级宝石包*1',
+                                '银币*200000，原始矿晶*80，邪能秘银石*30，天赋碎片1·史诗*20',
+                            ]
+                        }
+                    }
+                }
+            },
+            methods: {
+                onChange(index) {
+                    if (index == 0) {
+                        location.href = './index.html'
+                    } else if (index == 1) {
+                        location.href = './ranking.html'
+                    } else if (index == 2) {
+                        location.href = './giftpack.html'
+                    } else if (index == 3) {
+                        location.href = './joinUs.html'
+                    }
+
+                },
+                getQueryString(name) {
+                    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+                    var r = window.location.search.substr(1).match(reg);
+                    if (r != null) {
+                        return unescape(r[2]);
+                    }
+                    return null;
+                },
+                showIntroduce() {
+                    this.introduce1 = true;
+                },
+                showWelfare() {
+                    this.welfare = true;
+                },
+                downAndroid(url) {
+                    location.href = url
+                },
+                downIOS(url) {
+                    location.href = url
+                }
+            },
+            created: function () {
+            },
+            mounted: function () {
+                let id = this.getQueryString('id')
+                this.game = this.games.id
+                let obj = this.games;
+                for (let i in obj) {
+                    if (i == id) {
+                        this.game = obj[i]
+                    }
+                }
+
+                let width = '';
+                let height = ''
+            }
+        });
+
+        // 通过 CDN 引入时不会自动注册 Lazyload 组件
+        // 可以通过下面的方式手动注册
+        Vue.use(vant.Lazyload);
+    </script>
+</body>
+
+</html>

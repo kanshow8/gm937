@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="https://unpkg.com/vant@2.12/lib/index.css" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <!-- 引入 Vue 和 Vant 的 JS 文件 -->
+    <script src="https://unpkg.com/vue@2.6/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/vant@2.12/lib/vant.min.js"></script>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="navBar">
+            <div class="gmName">
+                <img class="logo" src="./pic/logo.png" alt="">
+                <img src="./pic/svg.svg">
+            </div>
+        </div>
+
+        <div class="list">
+            <div class="item" v-for="item in allList" @click="toDetail(item.id)">
+                <img class="itemImg" :src="item.pic" alt="">
+                <div class="desc">
+                    <div class="left">
+                        <p>{{item.title}} <span class="type">{{item.type}}</span></p>
+                        <span>{{item.description}}</span>
+                    </div>
+                    <div class="right">
+                        <span class="score">score</span>
+                        <span class="rate">{{item.rate}}</span>
+                    </div>
+                </div>
+
+                <div class="other">
+                    <div v-if="item.trending">
+                        <van-icon name="chart-trending-o" color="#00cdba" />
+                        <span class="chart">排行榜#{{item.chart}} </span>
+                    </div>
+                    <div v-if="item.recommend">
+                        <van-icon name="thumb-circle" color="#00cdba" />
+                        <span class="chart">编辑推荐 </span>
+                    </div>
+                    <div v-if="item.fire" class="fire">
+                        <van-icon name="fire" color="#ff6f38" />
+                        <span class="text ">{{item.other}}</span>
+                    </div>
+                    <span class="trans"></span>
+                </div>
+            </div>
+        </div>
+
+        <van-tabbar v-model="active" active-color="#00cdba" @change="onChange">
+            <van-tabbar-item icon="wap-home-o">首页</van-tabbar-item>
+            <van-tabbar-item icon="chart-trending-o">排行榜</van-tabbar-item>
+            <van-tabbar-item icon="gift-o">福利礼包</van-tabbar-item>
+            <van-tabbar-item icon="friends-o">加入我们</van-tabbar-item>
+
+        </van-tabbar>
+    </div>
+
+    <script>
+        // 在 #app 标签下渲染一个按钮组件
+        new Vue({
+            el: '#app',
+            data: function () {
+                return {
+                    active: 0,
+                    allList: [
+                        {
+                            pic: './pic/A3/A3-1.jpg',
+                            title: 'A3战之刃0.1折',
+                            type: 'RPG',
+                            id: 'A3',
+                            description: '暗黑即时战斗',
+                            rate: '9.7',
+                            chart: '1',
+                            trending: true,
+                            recommend: true,
+                            fire: true,
+                            other: '暗黑RPG手游天花板'
+                        },
+                        {
+                            pic: './pic/huanshijiuge/huanshijiuge-04.jpg',
+                            title: '幻世九歌5折版',
+                            type: '仙侠',
+                            id: 'huanshijiuge',
+                            description: '仙侠风格,MMORPG玩法',
+                            rate: '8.6',
+                            chart: '7',
+                            trending: true,
+                            recommend: true,
+                            fire: true,
+                            other: '仙侠爱好者心头好！'
+                        },
+                        {
+                            pic: './pic/chunbaihexian/chunbaihexian-01.jpg',
+                            title: '纯白和弦',
+                            type: '卡牌回合',
+                            id: 'chunbaihexian',
+                            description: '二次元',
+                            rate: '8.8',
+                            chart: '6',
+                            trending: true,
+                            recommend: false,
+                            fire: true,
+                            other: '二次元卡牌，养成系列，为了少女战斗把少年！！！'
+                        },
+                        {
+                            pic: './pic/yujinfengbao/yujinfengbao-03.jpg',
+                            title: '余烬风暴0.1折',
+                            id: 'yujinfengbao',
+                            type: 'RPG',
+                            description: '魔兽玩法，多人副本',
+                            rate: '9.5',
+                            chart: '2',
+                            trending: true,
+                            recommend: true,
+                            fire: true,
+                            other: '手游多人副本RPG推荐 喜欢团队战斗的选他！！！'
+                        },
+                        {
+                            pic: './pic/jianyutianxia/jianyutianxia-01.jpg',
+                            title: '剑御天下',
+                            type: '仙侠',
+                            id: 'jianyutianxia',
+                            description: '仙侠与RPG的结合',
+                            rate: '9.3',
+                            chart: '3',
+                            trending: true,
+                            recommend: true,
+                            fire: true,
+                            other: '暗黑RPG与仙侠系列的结合版 玩法独创一格 强烈推荐体验'
+                        },
+                        {
+                            pic: './pic/lielongzhezhige/lielongzhezhige-01.jpg',
+                            title: '猎龙者之歌',
+                            type: 'ARPG',
+                            id: 'lielongzhezhige',
+                            description: 'Q版画风 3D视角',
+                            rate: '9.0',
+                            chart: '5',
+                            trending: true,
+                            recommend: true,
+                            fire: true,
+                            other: 'Q版3D视角、PVP、PVE、GVG战斗'
+                        },
+                        {
+                            pic: './pic/mojingwuyu/mojingwuyu-01.jpg',
+                            title: '魔镜物语0.1折',
+                            type: '卡牌',
+                            id: 'mojingwuyu',
+                            description: '暗黑卡牌回合类',
+                            rate: '7.9',
+                            chart: '11',
+                            trending: true,
+                            recommend: false,
+                            fire: true,
+                            other: '闯荡奇幻世界,将噩梦从魔镜世界驱除！'
+                        },
+                        {
+                            pic: './pic/molongshijie/molongshijie-04.jpg',
+                            title: '魔龙世界',
+                            id: 'molongshijie',
+                            type: '魔兽',
+                            description: '为了信仰与荣耀，美轮美奂的魔幻大陆，在此重启！',
+                            rate: '8.5',
+                            chart: '8',
+                            trending: true,
+                            recommend: false,
+                            fire: true,
+                            other: '3DMMO正统魔幻手游,魔兽类的玩法与手游结合'
+                        },
+                        {
+                            pic: './pic/qinshimingyue/qinshimingyue-03.jpg',
+                            title: '秦时明月：沧海0.1折版',
+                            id: 'qinshimingyue',
+                            type: '卡牌回合',
+                            description: '暗黑即时战斗',
+                            rate: '8.2',
+                            chart: '9',
+                            trending: true,
+                            recommend: false,
+                            fire: true,
+                            other: '秦时明月爱好者强烈推荐,人物俱全'
+                        },
+                        {
+                            pic: './pic/shanhaiyiwenlu/shanhaiyiwenlu-05.jpg',
+                            title: '山海异闻录YH',
+                            type: '回合',
+                            id: 'shanhaiyiwenlu',
+                            description: '仙侠+回合',
+                            rate: '8.0',
+                            chart: '10',
+                            trending: true,
+                            recommend: false,
+                            fire: true,
+                            other: '如你喜欢仙侠模型但又喜欢回合的玩法，建议此款'
+                        },
+                        {
+                            pic: './pic/yuansuyongshi/yuansuyongshi-01.jpg',
+                            title: '元素勇士',
+                            id: 'yuansuyongshi',
+                            type: 'Q版RPG',
+                            description: '暗黑即时战斗',
+                            rate: '9.1',
+                            chart: '4',
+                            trending: true,
+                            recommend: false,
+                            fire: true,
+                            other: '喜欢Q版手游的强烈推荐,复古画风天花板'
+                        }
+                    ]
+
+                }
+            },
+            methods: {
+                onChange(index) {
+                    if (index == 1) {
+                        location.href = './ranking.html'
+                    } else if (index == 2) {
+                        location.href = './giftpack.html'
+                    } else if (index == 3) {
+                        location.href = './joinUs.html'
+                    }
+                },
+
+                toDetail(id) {
+                    console.log(id)
+                    location.href = './detail.html?id=' + id
+                }
+            },
+            created: function () {
+            },
+            mounted: function () {
+            }
+
+        });
+
+        // 通过 CDN 引入时不会自动注册 Lazyload 组件
+        // 可以通过下面的方式手动注册
+        Vue.use(vant.Lazyload);
+    </script>
+</body>
+
+</html>

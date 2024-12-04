@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>福利礼包</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://unpkg.com/vant@2.12/lib/index.css" />
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <!-- 引入 Vue 和 Vant 的 JS 文件 -->
+    <script src="https://unpkg.com/vue@2.6/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/vant@2.12/lib/vant.min.js"></script>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="navBar">
+            <div class="gmName">
+                <img class="logo" src="./pic/logo.png" alt="">
+                <img src="./pic/svg.svg">
+            </div>
+        </div>
+        <div class="main">
+            <h3>2步跟我领取福利礼包</h3>
+            <div class="box">
+                <span class="yuan">1</span>
+                <p>1.搜索微信号"gr19961" -- 添加好友</p>
+                <img src="./pic/wx.jpg" alt="">
+            </div>
+
+            <div class="box">
+                <span class="yuan">2</span>
+                <p>2.向客服发送领取礼包</p>
+                <img src="./pic/gift.jpg" alt="">
+            </div>
+
+        </div>
+        <van-tabbar v-model="active" active-color="#00cdba" @change="onChange">
+            <van-tabbar-item icon="wap-home-o">首页</van-tabbar-item>
+            <van-tabbar-item icon="chart-trending-o">排行榜</van-tabbar-item>
+            <van-tabbar-item icon="gift-o">福利礼包</van-tabbar-item>
+            <van-tabbar-item icon="friends-o">加入我们</van-tabbar-item>
+
+        </van-tabbar>
+    </div>
+
+    <script>
+        // 在 #app 标签下渲染一个按钮组件
+        new Vue({
+            el: '#app',
+            data: function () {
+                return {
+                    active: 2,
+
+                }
+            },
+            methods: {
+                onChange(index) {
+                    if (index == 0) {
+                        location.href = './index.html'
+                    } else if (index == 1) {
+                        location.href = './ranking.html'
+                    } else if (index == 3) {
+                        location.href = './joinUs.html'
+                    }
+
+                },
+            },
+            created: function () {
+            },
+            mounted: function () {
+            }
+
+        });
+
+        // 通过 CDN 引入时不会自动注册 Lazyload 组件
+        // 可以通过下面的方式手动注册
+        Vue.use(vant.Lazyload);
+    </script>
+</body>
+
+</html>
