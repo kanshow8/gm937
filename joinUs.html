@@ -19,7 +19,7 @@
 
 <body>
     <div id="app" v-cloak>
-        <div class="navBar">
+        <div class="navBar" @click="toIndex">
             <div class="gmName">
                 <img class="logo" src="./pic/logo.png" alt="">
                 <img src="./pic/svg.svg">
@@ -77,6 +77,9 @@
                     } else if (index == 2) {
                         location.href = './giftpack.html'
                     }
+                },
+                toIndex(){
+                    location.href = './index.html'
                 }
             },
             created: function () {

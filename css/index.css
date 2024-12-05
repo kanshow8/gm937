@@ -47,7 +47,9 @@ body {
     align-items: center;
 }
 
-
+.van-tabbar-item{
+    font-size: 14px !important;
+}
 @keyframes shake {
     0% {
         transform: skewX(-15deg);
@@ -89,12 +91,15 @@ p {
 .van-tabbar {
     max-width: 750px;
     margin: 0 auto;
+    border-top: 1px solid #969799;
 }
 
 .van-tabbar--fixed {
     left: auto !important;
 }
-
+.van-tabbar-item__icon{
+    font-size: 24px !important;
+}
 .list {
     width: 100%;
     /* padding: 3%; */
