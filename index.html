@@ -27,7 +27,7 @@
         </div>
 
         <div class="list">
-            <div class="item" v-for="item in allList" @click="toDetail(item.id)">
+            <div class="item" v-for="(item,index) in allList" @click="toDetail(item.id)">
                 <img class="itemImg" :src="item.pic" alt="">
                 <div class="desc">
                     <div class="left">
@@ -43,7 +43,7 @@
                 <div class="other">
                     <div v-if="item.trending">
                         <van-icon name="chart-trending-o" color="#00cdba" />
-                        <span class="chart">排行榜#{{item.chart}} </span>
+                        <span class="chart">排行榜#{{index+1}} </span>
                     </div>
                     <div v-if="item.recommend">
                         <van-icon name="thumb-circle" color="#00cdba" />
@@ -61,7 +61,7 @@
         <van-tabbar v-model="active" active-color="#00cdba" @change="onChange">
             <van-tabbar-item icon="wap-home-o">首页</van-tabbar-item>
             <van-tabbar-item icon="chart-trending-o">排行榜</van-tabbar-item>
-            <van-tabbar-item icon="gift-o">福利礼包</van-tabbar-item>
+            <van-tabbar-item icon="gift-o">福利领取</van-tabbar-item>
             <van-tabbar-item icon="friends-o">加入我们</van-tabbar-item>
 
         </van-tabbar>
@@ -89,30 +89,17 @@
                             other: '暗黑RPG手游天花板'
                         },
                         {
-                            pic: './pic/huanshijiuge/huanshijiuge-04.jpg',
-                            title: '幻世九歌5折版',
-                            type: '仙侠',
-                            id: 'huanshijiuge',
-                            description: '仙侠风格,MMORPG玩法',
-                            rate: '8.6',
-                            chart: '7',
+                            pic: './pic/jinglingduijue/jinglingjiujijinhua.jpg',
+                            title: '宝可梦-精灵究极进化',
+                            type: '卡牌',
+                            id: 'jinglingduijue',
+                            description: '暗黑即时战斗',
+                            rate: '9.6',
+                            chart: '2',
                             trending: true,
                             recommend: true,
                             fire: true,
-                            other: '仙侠爱好者心头好！'
-                        },
-                        {
-                            pic: './pic/chunbaihexian/chunbaihexian-01.jpg',
-                            title: '纯白和弦',
-                            type: '卡牌回合',
-                            id: 'chunbaihexian',
-                            description: '二次元',
-                            rate: '8.8',
-                            chart: '6',
-                            trending: true,
-                            recommend: false,
-                            fire: true,
-                            other: '二次元卡牌，养成系列，为了少女战斗把少年！！！'
+                            other: '宝可梦童年回忆推荐手游'
                         },
                         {
                             pic: './pic/yujinfengbao/yujinfengbao-03.jpg',
@@ -141,6 +128,19 @@
                             other: '暗黑RPG与仙侠系列的结合版 玩法独创一格 强烈推荐体验'
                         },
                         {
+                            pic: './pic/yuansuyongshi/yuansuyongshi-01.jpg',
+                            title: '元素勇士',
+                            id: 'yuansuyongshi',
+                            type: 'Q版RPG',
+                            description: '暗黑即时战斗',
+                            rate: '9.1',
+                            chart: '4',
+                            trending: true,
+                            recommend: false,
+                            fire: true,
+                            other: '喜欢Q版手游的强烈推荐,复古画风天花板'
+                        },
+                        {
                             pic: './pic/lielongzhezhige/lielongzhezhige-01.jpg',
                             title: '猎龙者之歌',
                             type: 'ARPG',
@@ -154,17 +154,30 @@
                             other: 'Q版3D视角、PVP、PVE、GVG战斗'
                         },
                         {
-                            pic: './pic/mojingwuyu/mojingwuyu-01.jpg',
-                            title: '魔镜物语0.1折',
-                            type: '卡牌',
-                            id: 'mojingwuyu',
-                            description: '暗黑卡牌回合类',
-                            rate: '7.9',
-                            chart: '11',
+                            pic: './pic/chunbaihexian/chunbaihexian-01.jpg',
+                            title: '纯白和弦',
+                            type: '卡牌回合',
+                            id: 'chunbaihexian',
+                            description: '二次元',
+                            rate: '8.8',
+                            chart: '6',
                             trending: true,
                             recommend: false,
                             fire: true,
-                            other: '闯荡奇幻世界,将噩梦从魔镜世界驱除！'
+                            other: '二次元卡牌，养成系列，为了少女战斗把少年！！！'
+                        },
+                        {
+                            pic: './pic/huanshijiuge/huanshijiuge-04.jpg',
+                            title: '幻世九歌5折版',
+                            type: '仙侠',
+                            id: 'huanshijiuge',
+                            description: '仙侠风格,MMORPG玩法',
+                            rate: '8.6',
+                            chart: '7',
+                            trending: true,
+                            recommend: true,
+                            fire: true,
+                            other: '仙侠爱好者心头好！'
                         },
                         {
                             pic: './pic/molongshijie/molongshijie-04.jpg',
@@ -206,17 +219,17 @@
                             other: '如你喜欢仙侠模型但又喜欢回合的玩法，建议此款'
                         },
                         {
-                            pic: './pic/yuansuyongshi/yuansuyongshi-01.jpg',
-                            title: '元素勇士',
-                            id: 'yuansuyongshi',
-                            type: 'Q版RPG',
-                            description: '暗黑即时战斗',
-                            rate: '9.1',
-                            chart: '4',
+                            pic: './pic/mojingwuyu/mojingwuyu-01.jpg',
+                            title: '魔镜物语0.1折',
+                            type: '卡牌',
+                            id: 'mojingwuyu',
+                            description: '暗黑卡牌回合类',
+                            rate: '7.9',
+                            chart: '11',
                             trending: true,
                             recommend: false,
                             fire: true,
-                            other: '喜欢Q版手游的强烈推荐,复古画风天花板'
+                            other: '闯荡奇幻世界,将噩梦从魔镜世界驱除！'
                         }
                     ]
 
