@@ -116,7 +116,7 @@
 </style>
 
 <body>
-    <div id="app">
+    <div id="app" v-clock>
         <img class="bg" src="./1.jpg" alt="">
         <h1 class="title">Pcrows代理推广计划</h1>
         <div class="box">
@@ -221,7 +221,7 @@
                 <p>示例如下：</p>
                 <div v-for="item in profitData">
                     <p>{{item.principal }}/(1-{{item.rate/100}})/8.26 ≈
-                        {{Math.ceil(item.principal/(1-item.rate/100)/8.26)}}代币
+                        {{Math.ceil(item.principal/(1-item.rate/100)/8.26)}} (代币)
                     </p>
                 </div>
             </el-card>
@@ -232,7 +232,7 @@
                 <p>示例如下：</p>
                 <div v-for="item in profitData">
                     <p>{{Math.ceil(item.principal/(1-item.rate/100)/8.26)}}*9.26 ≈
-                        {{Math.ceil(Math.ceil(item.principal/(1-item.rate/100)/8.26)*9.26)}}元
+                        {{Math.ceil(Math.ceil(item.principal/(1-item.rate/100)/8.26)*9.26)}} (元)
                     </p>
                 </div>
             </el-card>
