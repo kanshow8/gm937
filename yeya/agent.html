@@ -42,9 +42,6 @@
         margin: 0;
     }
 
-    .box .text p {
-        margin: 5px 0;
-    }
 
     .box .table {
         margin-bottom: 30px;
@@ -54,13 +51,24 @@
         margin-bottom: 10px;
     }
 
+    .tableTitle {
+        text-align: center;
+        padding: 15px 0;
+        font-family: serif;
+        font-weight: 700;
+    }
+
+    [v-cloak] {
+        display: none
+    }
+
     @media (max-width: 767px) {
         .box {
             width: 90%;
             padding-left: 5%;
             /* font-size: 1rem; */
             padding-bottom: 100px;
-            margin-top: -1rem;
+            margin-top: -2rem;
         }
 
         .title {
@@ -81,6 +89,18 @@
             padding: 10px 20px;
             font-size: 14px;
         }
+
+        .box .text .require {
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-family: serif;
+            margin-top: 2rem;
+        }
+
+        .box .text p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
     }
 
     @media (min-width: 1200px) {
@@ -88,7 +108,7 @@
             width: 80%;
             padding-left: 10%;
             padding-bottom: 100px;
-            margin-top: -4rem;
+            margin-top: -6rem;
         }
 
         .title {
@@ -98,25 +118,24 @@
             font-size: 7rem;
             letter-spacing: 10px;
         }
-    }
 
 
-    .require {
-        font-size: 1.5rem;
-        font-weight: 700;
-        font-family: serif;
-    }
-
-    .tableTitle {
-        text-align: center;
-        padding: 15px 0;
-        font-family: serif;
-        font-weight: 700;
+        .box .text .require {
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: serif;
+            margin-top: 2rem;
+        }
+        
+        .box .text p {
+            margin: 10px 0;
+            font-size: 1.2rem;
+        }
     }
 </style>
 
 <body>
-    <div id="app" v-clock>
+    <div id="app" v-cloak>
         <img class="bg" src="./1.jpg" alt="">
         <h1 class="title">Pcrows代理推广计划</h1>
         <div class="box">
@@ -126,20 +145,20 @@
                 <p>2. 充值金额每周不低于<span class="red">10000</span>元。</p>
                 <p>
                     3. 严禁互相洗中国玩家，发现直接收回代理权限。
-                    不能以任何形式去洗玩家，在明知对方已经在游戏内情况下，只要给了对方下载链接，有被实锤直接收回代理权限，不讲情面。
+                    不能以任何形式去洗玩家，在明知对方已经在游戏内情况下，只要给了对方下载链接，有被实锤直接收回代理权限。
                 </p>
                 <!--  <p class="red">
                     分成计算规则：初始充值按30%分成计算，如下周达不到要求，则下下周充值按25%结算，达到要求之后在下一个计算周期恢复到30%分成。(转账对应礼包代理价格给总代之后，发送玩家账号和角色名进行充值。)
                 </p> -->
-
+                <p class="red require">结算方式:</p>
                 <p>
                     代理采用加币结算模式，分成计算规则：</br>
-                    &nbsp;单次上币<span class="red">≤2000</span>按<span class="red">25%</span>计算，</br>
-                    &nbsp;单次上币<span class="red">≤5000</span>按<span class="red">27%</span>计算，</br>
-                    &nbsp;单次上币<span class="red">≥10000</span> 按<span class="red">30%</span>计算。
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单次上币 <span class="red">≤2000(元)</span> 按<span class="red">25%</span>计算，</br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单次上币 <span class="red">≤5000(元)</span> 按<span class="red">27%</span>计算，</br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单次上币 <span class="red">≥10000(元)</span> 按<span class="red">30%</span>计算。
                 </p>
                 <p>
-                    由于每个礼包售价的代币比例不同，<span class="red">实际分成会高于规定的分成比例</span>，并且在代币平均比例9.26的前提下我们<span
+                    由于每个礼包售价的代币比例不同，<span class="red">实际分成会高于规定的分成比例</span>，并且在代币平均比例9.26的前提下<span
                         class="red">再让利1个点给代理</span>。</br>
                 </p>
             </div>
@@ -150,7 +169,7 @@
                 </el-table-column>
                 <el-table-column prop="price" label="礼包售价 (元)" min-width="35%">
                 </el-table-column>
-                <el-table-column label="代币比例 (售价/代币)" min-width="50%">
+                <el-table-column label="代币比例 (1代币价值的RMB)" min-width="50%">
                     <template slot-scope="scope">
                         {{ scope.row.price / scope.row.package}}
                     </template>
@@ -158,23 +177,23 @@
             </el-table>
             <!-- 
             <p>
-                代理计算公式：成本/分成比例/代币比例=实际获得代币</br>
+                代理计算公式：上币成本/分成比例/代币比例=实际获得代币</br>
                 例:
-                2000(成本) / 0.75(分成25%) / 8.26(代币比例) ≈ 323(到手代币)</br>
+                2000(上币成本) / 0.75(分成25%) / 8.26(代币比例) ≈ 323(到手代币)</br>
 
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;323代币出售礼包可获得：323*9.26(平均比例) = 2991(实际到手RMB)</br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售利润率 = 利润/销售收入× 100%= (2991-2000) / 2991 ≈ 33%</br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;成本利润率 = 利润/成本× 100% = (2991-2000) / 2000 ≈ 49.5%</br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;成本利润率 = 利润/上币成本× 100% = (2991-2000) / 2000 ≈ 49.5%</br>
                 </br>
-                5000(成本) / 0.73(分成27%) / 8.26(代币比例) ≈ 830(到手代币)</br>
+                5000(上币成本) / 0.73(分成27%) / 8.26(代币比例) ≈ 830(到手代币)</br>
                 830代币可充值礼包：830*9.26(平均比例) = 7686(实际到手RMB)</br>
                 销售利润率 = 利润/销售收入× 100%= (7686-5000) / 7686 ≈ 34.9%</br>
-                成本利润率 = 利润/成本× 100% = (7686-5000) / 5000 ≈ 53.7%</br>
+                成本利润率 = 利润/上币成本× 100% = (7686-5000) / 5000 ≈ 53.7%</br>
                 </br>
-                10000(成本) / 0.7(分成30%) / 8.26(代币比例) ≈ 1730(到手代币)</br>
+                10000(上币成本) / 0.7(分成30%) / 8.26(代币比例) ≈ 1730(到手代币)</br>
                 1730代币可充值礼包：1730*9.26(平均比例) = 16020(实际到手RMB)</br>
                 销售利润率 = 利润/销售收入× 100%= (16020-10000) / 16020 ≈ 37.6%</br>
-                成本利润率 = 利润/成本× 100% = (16020-10000) / 10000 ≈ 60.2%</br>
+                成本利润率 = 利润/上币成本× 100% = (16020-10000) / 10000 ≈ 60.2%</br>
             </p> -->
 
 
@@ -182,7 +201,7 @@
 
             <el-table class="table" :data="profitData" border style="width: 100%" :fit="true"
                 :row-class-name="tableRowClassName">
-                <el-table-column prop="principal" label="成本(元)" min-width="">
+                <el-table-column prop="principal" label="上币成本(元)" min-width="">
                 </el-table-column>
                 <el-table-column prop="rate" label="分成(%)" min-width="">
                     <template slot-scope="scope">
@@ -215,7 +234,7 @@
             </el-table>
             <el-card class="box-card">
                 <div slot="header" class="clearfix">
-                    <span class="red">到手代币计算公式：成本/分成比例/代币比例</span>
+                    <span class="red">到手代币计算公式：上币成本/分成比例/代币比例</span>
                 </div>
                 <p>代币比例让利1个点 9.26-1=8.26</p>
                 <p>示例如下：</p>
@@ -251,7 +270,7 @@
             </el-card>
             <el-card class="box-card">
                 <div slot="header" class="clearfix">
-                    <span class="red">成本利润率计算公式：利润/成本*100%</span>
+                    <span class="red">成本利润率计算公式：利润/上币成本*100%</span>
                 </div>
                 <p>示例如下：</p>
                 <div v-for="item in profitData">
@@ -264,7 +283,7 @@
             </el-card>
 
             <!--    <p>
-                <span class="red">到手代币计算公式：成本/分成比例/代币比例（代币比例让利1个点 9.26-1=8.26）</span></br>
+                <span class="red">到手代币计算公式：上币成本/分成比例/代币比例（代币比例让利1个点 9.26-1=8.26）</span></br>
                 例:
             </p>
             <div v-for="item in profitData">
@@ -293,7 +312,7 @@
             </div>
 
             <p>
-                <span class="red">成本利润率计算公式：利润/成本*100%</span></br>
+                <span class="red">成本利润率计算公式：利润/上币成本*100%</span></br>
                 例:
             </p>
             <div v-for="item in profitData">
