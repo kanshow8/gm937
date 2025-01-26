@@ -263,41 +263,6 @@
                 </div>
             </el-card>
 
-            <el-collapse v-model="activeNames">
-                <el-collapse-item title="到手代币计算公式：成本/分成比例/代币比例" name="1">
-                    （代币比例让利1个点 9.26-1=8.26）
-                    <div v-for="item in profitData">
-                        <p>{{item.principal }}/(1-{{item.rate/100}})/8.26 ≈
-                            {{Math.ceil(item.principal/(1-item.rate/100)/8.26)}}
-                        </p>
-                    </div>
-                </el-collapse-item>
-                <el-collapse-item title="变现金额计算公式：代币*平均比例" name="2">
-                    <div v-for="item in profitData">
-                        <p>{{Math.ceil(item.principal/(1-item.rate/100)/8.26)}}*9.26 ≈
-                            {{Math.ceil(Math.ceil(item.principal/(1-item.rate/100)/8.26)*9.26)}}
-                        </p>
-                    </div>
-                </el-collapse-item>
-                <el-collapse-item title="销售利润率计算公式：利润/销售收入*100%" name="3">
-                    <div v-for="item in profitData">
-                        <p>({{Math.ceil(Math.ceil(item.principal/(1-item.rate/100)/8.26)*9.26)}}-{{item.principal}})/{{Math.ceil(Math.ceil(item.principal/(1-item.rate/100)/8.26)*9.26)}}*100%
-                            ≈
-                            {{ ((Math.ceil(Math.ceil(item.principal/(1-item.rate/100)/8.26)*9.26)-
-                            item.principal)/Math.ceil(Math.ceil(item.principal/(1-item.rate/100)/8.26)*9.26)*100).toFixed(1)}}%
-                        </p>
-                    </div>
-                </el-collapse-item>
-                <el-collapse-item title="成本利润率计算公式：利润/成本*100%" name="4">
-                    <div v-for="item in profitData">
-                        <p>({{Math.ceil(Math.ceil(item.principal/(1-item.rate/100)/8.26)*9.26)}}-{{item.principal}})/{{item.principal}}*100%
-                            ≈
-                            {{ ((Math.ceil(Math.ceil(item.principal/(1-item.rate/100)/8.26)*9.26)-
-                            item.principal)/item.principal*100).toFixed(1)}}%
-                        </p>
-                    </div>
-                </el-collapse-item>
-            </el-collapse>
             <!--    <p>
                 <span class="red">到手代币计算公式：成本/分成比例/代币比例（代币比例让利1个点 9.26-1=8.26）</span></br>
                 例:
