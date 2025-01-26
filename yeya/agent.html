@@ -139,7 +139,7 @@
                     &nbsp;单次上币<span class="red">≥10000</span> 按<span class="red">30%</span>计算。
                 </p>
                 <p>
-                    由于每个礼包售价的代币比例不同，<span class="red">实际分成会高于规定的分成比例</span>，并且在平均比例9.26的前提下我们<span
+                    由于每个礼包售价的代币比例不同，<span class="red">实际分成会高于规定的分成比例</span>，并且在代币平均比例9.26的前提下我们<span
                         class="red">再让利1个点给代理</span>。</br>
                 </p>
             </div>
@@ -194,7 +194,7 @@
                         {{Math.ceil(scope.row.principal / (1-scope.row.rate/100) / 8.26 )}}
                     </template>
                 </el-table-column>
-                <el-table-column label="变现金额(元)" min-width="">
+                <el-table-column label="代币价值(元)" min-width="">
                     <template slot-scope="scope">
                         {{ (Math.ceil(scope.row.principal / (1-scope.row.rate/100) / 8.26)*9.26).toFixed(0)}}
                     </template>
@@ -227,7 +227,7 @@
             </el-card>
             <el-card class="box-card">
                 <div slot="header" class="clearfix">
-                    <span class="red">变现金额计算公式：代币*平均比例</span>
+                    <span class="red">代币价值计算公式：代币数量*代币平均比例</span>
                 </div>
                 <p>示例如下：</p>
                 <div v-for="item in profitData">
@@ -272,7 +272,7 @@
                 </p>
             </div>
             <p>
-                <span class="red">变现金额计算公式：代币*平均比例</span></br>
+                <span class="red">代币价值计算公式：代币*平均比例</span></br>
                 例:
             </p>
             <div v-for="item in profitData">
