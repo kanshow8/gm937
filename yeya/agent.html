@@ -221,7 +221,7 @@
                 <p>示例如下：</p>
                 <div v-for="item in profitData">
                     <p>{{item.principal }}/(1-{{item.rate/100}})/8.26 ≈
-                        {{Math.ceil(item.principal/(1-item.rate/100)/8.26)}}
+                        {{Math.ceil(item.principal/(1-item.rate/100)/8.26)}}代币
                     </p>
                 </div>
             </el-card>
@@ -232,7 +232,7 @@
                 <p>示例如下：</p>
                 <div v-for="item in profitData">
                     <p>{{Math.ceil(item.principal/(1-item.rate/100)/8.26)}}*9.26 ≈
-                        {{Math.ceil(Math.ceil(item.principal/(1-item.rate/100)/8.26)*9.26)}}
+                        {{Math.ceil(Math.ceil(item.principal/(1-item.rate/100)/8.26)*9.26)}}元
                     </p>
                 </div>
             </el-card>
