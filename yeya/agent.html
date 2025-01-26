@@ -182,7 +182,7 @@
 
             <el-table class="table" :data="profitData" border style="width: 100%" :fit="true"
                 :row-class-name="tableRowClassName">
-                <el-table-column prop="principal" label="成本" min-width="">
+                <el-table-column prop="principal" label="成本(元)" min-width="">
                 </el-table-column>
                 <el-table-column prop="rate" label="分成(%)" min-width="">
                     <template slot-scope="scope">
@@ -194,7 +194,7 @@
                         {{Math.ceil(scope.row.principal / (1-scope.row.rate/100) / 8.26 )}}
                     </template>
                 </el-table-column>
-                <el-table-column label="变现金额" min-width="">
+                <el-table-column label="变现金额(元)" min-width="">
                     <template slot-scope="scope">
                         {{ (Math.ceil(scope.row.principal / (1-scope.row.rate/100) / 8.26)*9.26).toFixed(0)}}
                     </template>
