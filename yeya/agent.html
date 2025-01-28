@@ -73,9 +73,9 @@
 
         .title {
             position: absolute;
-            top: 1rem;
+            top: 0;
             width: 100%;
-            font-size: 2rem;
+            font-size: 1rem;
             letter-spacing: 5px;
         }
 
@@ -101,6 +101,21 @@
             margin: 10px 0;
             font-size: 16px;
         }
+
+        .contact {
+            width: 100%;
+            text-align: center;
+            font-size: 1rem;
+            color: #ffffff !important;
+            -webkit-text-stroke: 1px #000000;
+            font-family: auto;
+            letter-spacing: 3px;
+        }
+
+        .plan {
+            font-size: 2rem;
+            padding: 0.6rem 0;
+        }
     }
 
     @media (min-width: 1200px) {
@@ -115,7 +130,7 @@
             position: absolute;
             top: 1rem;
             width: 100%;
-            font-size: 7rem;
+            font-size: 3rem;
             letter-spacing: 10px;
         }
 
@@ -126,10 +141,25 @@
             font-family: serif;
             margin-top: 2rem;
         }
-        
+
         .box .text p {
             margin: 10px 0;
             font-size: 1.2rem;
+        }
+
+        .plan {
+            font-size: 6rem;
+            padding: 1rem 0 2rem 0;
+        }
+
+        .contact {
+            width: 100%;
+            text-align: center;
+            font-size: 3rem;
+            color: #ffffff !important;
+            -webkit-text-stroke: 1px #000000;
+            font-family: auto;
+            letter-spacing: 3px;
         }
     }
 </style>
@@ -137,7 +167,15 @@
 <body>
     <div id="app" v-cloak>
         <img class="bg" src="./1.jpg" alt="">
-        <h1 class="title">Pcrows代理推广计划</h1>
+        <div class="title">
+            <p class="plan">Pcrows代理推广计划</p>
+            <div class="contact">
+                <p>代理合作联系方式：</p>
+                <p>TG：pcrowskk</p>
+                <p>VX：Jeeny199701</p>
+            </div>
+        </div>
+
         <div class="box">
             <div class="text">
                 <p class="red require">代理要求:</p>
@@ -153,9 +191,12 @@
                 <p class="red require">结算方式:</p>
                 <p>
                     代理采用加币结算模式，分成计算规则：</br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单次上币 <span class="red">≤2000(元)</span> 按<span class="red">25%</span>计算，</br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单次上币 <span class="red">≤5000(元)</span> 按<span class="red">27%</span>计算，</br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单次上币 <span class="red">≥10000(元)</span> 按<span class="red">30%</span>计算。
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单次上币 <span class="red">≤2000(元)</span> 按<span
+                        class="red">25%</span>计算，</br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单次上币 <span class="red">≤5000(元)</span> 按<span
+                        class="red">27%</span>计算，</br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单次上币 <span class="red">≥10000(元)</span> 按<span
+                        class="red">30%</span>计算。
                 </p>
                 <p>
                     由于每个礼包售价的代币比例不同，<span class="red">实际分成会高于规定的分成比例</span>，并且在代币平均比例9.26的前提下<span
