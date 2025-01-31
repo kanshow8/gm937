@@ -29,9 +29,9 @@
         width: 100%;
     }
 
-    .title {
-        color: gold !important;
+    .title .plan {
         text-align: center;
+        color: gold !important;
         -webkit-text-stroke: 1px #f69300;
         font-family: serif;
         font-weight: 700;
@@ -56,7 +56,6 @@
         padding: 15px 0;
         font-family: serif;
         font-weight: 700;
-        font-size: 1rem;
     }
 
     [v-cloak] {
@@ -64,6 +63,10 @@
     }
 
     @media (max-width: 767px) {
+        .tableTitle {
+            font-size: 1rem;
+        }
+
         .box {
             width: 90%;
             padding-left: 5%;
@@ -107,11 +110,12 @@
             width: 100%;
             text-align: center;
             font-size: 1rem;
-            color: #ffffff !important;
-            -webkit-text-stroke: 1px #000000;
-            font-family: auto;
-            letter-spacing: 3px;
+            color: #f69300;
+            /* -webkit-text-stroke: 1px #f69300; */
+            font-family: revert;
+            letter-spacing: 2px;
         }
+
 
         .plan {
             font-size: 2rem;
@@ -120,6 +124,10 @@
     }
 
     @media (min-width: 1200px) {
+        .tableTitle {
+            font-size: 1.4rem;
+        }
+
         .box {
             width: 80%;
             padding-left: 10%;
@@ -153,14 +161,15 @@
             padding: 1rem 0 2rem 0;
         }
 
-        .contact {
+        .title .contact {
             width: 100%;
             text-align: center;
             font-size: 3rem;
-            color: #ffffff !important;
-            -webkit-text-stroke: 1px #000000;
-            font-family: auto;
-            letter-spacing: 3px;
+            color: #f69300;
+            /* -webkit-text-stroke: 1px #f69300; */
+            font-family: revert;
+            letter-spacing: 2px;
+            margin-top: 3rem;
         }
     }
 </style>
@@ -171,7 +180,7 @@
         <div class="title">
             <p class="plan">Pcrows代理推广计划</p>
             <div class="contact">
-                <p>代理合作联系方式：</p>
+                <p>代理合作联系方式</p>
                 <p>TG：pcrowskk</p>
                 <p>VX：xlc960504</p>
             </div>
